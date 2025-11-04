@@ -25,5 +25,8 @@ claude CLI with Claude 4.5 Sonnet model.
 1. Use Claude CLI to generate a ticket in /tickets folder.
 2. Check the ticket.
 
-## Considerations:
+## Further Considerations:
 1. Use interface instead of type for props and models.
+2. Max lenght for meeting title and description.
+3. Should we allow meetings in the past?
+4. Auto suggest end times, and maybe start times.

@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  TextField,
-} from "@mui/material";
+import { Box, Button, Drawer, TextField, Typography } from "@mui/material";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import React, { useState } from "react";
 import { Meeting } from "../models/Meeting";
@@ -18,11 +11,7 @@ type Props = {
   onSubmit: (meeting: Omit<Meeting, "id">) => Promise<void>;
 };
 
-export default function CreateMeetingModal({
-  open,
-  onClose,
-  onSubmit,
-}: Props) {
+export default function CreateMeetingModal({ open, onClose, onSubmit }: Props) {
   const [title, setTitle] = useState("");
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [endTime, setEndTime] = useState<Date | null>(null);
@@ -88,12 +77,41 @@ export default function CreateMeetingModal({
   };
 
   return (
-    <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Create Meeting</DialogTitle>
-      <DialogContent>
-        <div style={{ display: "flex", flexDirection: "column", gap: "16px", paddingTop: "8px" }}>
+    <Drawer anchor="right" open={open} onClose={handleClose}>
+      <Box
+        sx={{
+          width: 400,
+          display: "flex",
+          flexDirection: "column",
+          height: "100%",
+        }}
+      >
+        {/* Header */}
+        <Box sx={{ padding: "24px" }}>
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: 600, fontSize: "20px", paddingBottom: "8px" }}
+          >
+            Create a new meeting
+          </Typography>
+          <Typography variant="body1">
+            Complete the information below in order to create a new meeting.
+          </Typography>
+        </Box>
+
+        {/* Content */}
+        <Box
+          sx={{
+            flex: 1,
+            padding: "24px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "16px",
+            overflowY: "auto",
+          }}
+        >
           <TextField
-            label="Title"
+            label="Meeting title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             error={!!errors.title}
@@ -101,6 +119,12 @@ export default function CreateMeetingModal({
             required
             fullWidth
             autoFocus
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                height: 'auto',
+                minHeight: '48px',
+              },
+            }}
           />
 
           <DateTimePicker
@@ -136,9 +160,15 @@ export default function CreateMeetingModal({
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             multiline
-            rows={3}
+            rows={4}
             fullWidth
             placeholder="Optional"
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                height: 'auto',
+                padding: '12px',
+              },
+            }}
           />
 
           {errors.submit && (
@@ -146,20 +176,36 @@ export default function CreateMeetingModal({
               {errors.submit}
             </div>
           )}
-        </div>
-      </DialogContent>
-      <DialogActions sx={{ padding: "16px 24px" }}>
-        <Button onClick={handleClose} disabled={isSubmitting}>
-          Cancel
-        </Button>
-        <Button
-          onClick={handleSubmit}
-          variant="contained"
-          disabled={isSubmitting}
+        </Box>
+
+        {/* Actions */}
+        <Box
+          sx={{
+            padding: "16px 24px",
+            borderTop: "1px solid #E7E8E9",
+            display: "flex",
+            gap: "8px",
+          }}
         >
-          {isSubmitting ? "Creating..." : "Create Meeting"}
-        </Button>
-      </DialogActions>
-    </Dialog>
+          <Button
+            onClick={handleClose}
+            variant="outlined"
+            disabled={isSubmitting}
+            sx={{ flex: 1 }}
+            color="secondary"
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleSubmit}
+            variant="contained"
+            disabled={isSubmitting}
+            sx={{ flex: 1 }}
+          >
+            {isSubmitting ? "Creating..." : "Save"}
+          </Button>
+        </Box>
+      </Box>
+    </Drawer>
   );
 }
