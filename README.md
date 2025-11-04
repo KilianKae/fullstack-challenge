@@ -33,3 +33,4 @@ claude CLI with Claude 4.5 Sonnet model.
 2. Max lenght for meeting title and description.
 3. Should we allow meetings in the past?
 4. Auto suggest end times, and maybe start times.
+5. I added the display of server errors to the frontend, this can expose poetentially sensitive server implementation details and might be hard to read.
