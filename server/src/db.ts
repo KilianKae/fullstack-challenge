@@ -1,12 +1,17 @@
 import mongoose from "mongoose";
+import { MongoMemoryServer } from "mongodb-memory-server";
 import Meeting from "./models/meeting";
 
-const dbUri = process.env.MONGODB_URI || "fallback_default_mongodb_uri";
+let mongoServer: MongoMemoryServer;
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(dbUri);
-    console.log("MongoDB connected...");
+    // Create in-memory MongoDB instance
+    mongoServer = await MongoMemoryServer.create();
+    const uri = mongoServer.getUri();
+
+    await mongoose.connect(uri);
+    console.log("MongoDB Memory Server connected...");
 
     // Optional: Clear existing data and insert dummy data
     await resetDatabase();
@@ -31,7 +36,7 @@ const resetDatabase = async () => {
   for (let i = 0; i < 100; i++) {
     const randomStartDate = new Date(
       // Random date between now and 24 hours later
-      now + Math.floor(Math.random() * 1000 * 60 * 60 * 24),
+      now + Math.floor(Math.random() * 1000 * 60 * 60 * 24)
     );
 
     meetings.push({
