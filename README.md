@@ -36,3 +36,4 @@ claude CLI with Claude 4.5 Sonnet model.
 5. I added the display of server errors to the frontend, this can expose poetentially sensitive server implementation details and might be hard to read.
 6. I used MUI UI Date and Time picker, not to seperate fields.   
 7. See if ecperimantal popup should be implemented / desciption should be added. 
+8. Do code review.
