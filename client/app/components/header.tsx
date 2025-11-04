@@ -1,7 +1,7 @@
 import { AppBar, Button, Toolbar } from "@mui/material";
 import { useState } from "react";
 import { Meeting } from "../models/Meeting";
-import CreateMeetingModal from "./CreateMeetingModal";
+import CreateMeetingModal from "./createMeetingDrawer";
 
 type Props = {
   onCreateMeeting: (meeting: Omit<Meeting, "id">) => Promise<void>;
