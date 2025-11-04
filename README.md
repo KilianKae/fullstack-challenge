@@ -24,3 +24,6 @@ claude CLI with Claude 4.5 Sonnet model.
 ## Development process:
 1. Use Claude CLI to generate a ticket in /tickets folder.
 2. Check the ticket.
+
+## Considerations:
+1. Use interface instead of type for props and models.
