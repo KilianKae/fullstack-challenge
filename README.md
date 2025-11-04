@@ -24,6 +24,7 @@ Please ensure that you dont exceed the given timeframe. Good luck!
 claude CLI with Claude 4.5 Sonnet model.
 
 ## Development process:
+0. (fixed git issue)
 1. Use Claude CLI to generate a ticket in /tickets folder.
 2. Check the ticket and improve the ticket if needed.
 3. Implement the ticket.
@@ -37,3 +38,4 @@ claude CLI with Claude 4.5 Sonnet model.
 6. I used MUI UI Date and Time picker, not to seperate fields.   
 7. See if ecperimantal popup should be implemented / desciption should be added. 
 8. Do code review.
+9. Delete ticket folder.
