@@ -17,6 +17,16 @@ const meetingSchema = new mongoose.Schema({
   title: { type: String, required: true },
   startTime: { type: Date, required: true },
   endTime: { type: Date, required: true },
+}, {
+  toJSON: {
+    virtuals: true,
+    transform: function(_doc: any, ret: any) {
+      ret.id = ret._id.toString();
+      delete ret._id;
+      delete ret.__v;
+      return ret;
+    }
+  }
 });
 
 meetingSchema.plugin(paginate);

@@ -16,9 +16,9 @@ Please ensure that you dont exceed the given timeframe. Good luck!
 
 ## Work done:
 1. Added in-memory MongoDB server to the server.
-2. Added CreateMeetingDrawer component to the client.
+2. Added CreateMeetingDrawer component to the client UI and API call
 3. Added Button to the Header component to open the CreateMeetingDrawer.
-4. Implemented API call
+4. Fixed id issue. (This however exposes DB interna, which can lead to leaks of bussineces data size & velocity)
 
 ## Tools used:
 claude CLI with Claude 4.5 Sonnet model.
@@ -34,3 +34,4 @@ claude CLI with Claude 4.5 Sonnet model.
 3. Should we allow meetings in the past?
 4. Auto suggest end times, and maybe start times.
 5. I added the display of server errors to the frontend, this can expose poetentially sensitive server implementation details and might be hard to read.
+6. I used MUI UI Date and Time picker, not to seperate fields.   
