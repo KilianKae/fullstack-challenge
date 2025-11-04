@@ -15,7 +15,6 @@ export default function CreateMeetingModal({ open, onClose, onSubmit }: Props) {
   const [title, setTitle] = useState("");
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [endTime, setEndTime] = useState<Date | null>(null);
-  const [description, setDescription] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -38,6 +37,13 @@ export default function CreateMeetingModal({ open, onClose, onSubmit }: Props) {
       newErrors.endTime = "End time must be after start time";
     }
 
+    if (startTime && endTime && endTime > startTime) {
+      const durationInHours = (endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60);
+      if (durationInHours > 8) {
+        newErrors.endTime = "Meeting duration must be less than 8 hours";
+      }
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -55,11 +61,21 @@ export default function CreateMeetingModal({ open, onClose, onSubmit }: Props) {
         endTime: endTime!.toISOString(),
       });
       handleClose();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error creating meeting:", error);
-      setErrors({
-        submit: "Failed to create meeting. Please try again.",
-      });
+
+      // Handle backend validation errors
+      if (error.response?.data?.errors) {
+        const backendErrors: Record<string, string> = {};
+        error.response.data.errors.forEach((err: { field: string; message: string }) => {
+          backendErrors[err.field] = err.message;
+        });
+        setErrors(backendErrors);
+      } else {
+        setErrors({
+          submit: "Failed to create meeting. Please try again.",
+        });
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -70,7 +86,6 @@ export default function CreateMeetingModal({ open, onClose, onSubmit }: Props) {
       setTitle("");
       setStartTime(null);
       setEndTime(null);
-      setDescription("");
       setErrors({});
       onClose();
     }
@@ -151,22 +166,6 @@ export default function CreateMeetingModal({ open, onClose, onSubmit }: Props) {
                 error: !!errors.endTime,
                 helperText: errors.endTime,
                 fullWidth: true,
-              },
-            }}
-          />
-
-          <TextField
-            label="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            multiline
-            rows={4}
-            fullWidth
-            placeholder="Optional"
-            sx={{
-              '& .MuiOutlinedInput-root': {
-                height: 'auto',
-                padding: '12px',
               },
             }}
           />

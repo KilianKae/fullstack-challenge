@@ -16,14 +16,17 @@ Please ensure that you dont exceed the given timeframe. Good luck!
 
 ## Work done:
 1. Added in-memory MongoDB server to the server.
-2. 
+2. Added CreateMeetingDrawer component to the client.
+3. Added Button to the Header component to open the CreateMeetingDrawer.
+4. Implemented API call
 
 ## Tools used:
 claude CLI with Claude 4.5 Sonnet model.
 
 ## Development process:
 1. Use Claude CLI to generate a ticket in /tickets folder.
-2. Check the ticket.
+2. Check the ticket and improve the ticket if needed.
+3. Implement the ticket.
 
 ## Further Considerations:
 1. Use interface instead of type for props and models.
