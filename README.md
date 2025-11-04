@@ -14,3 +14,13 @@
 
 Please ensure that you dont exceed the given timeframe. Good luck!
 
+## Work done:
+1. Added in-memory MongoDB server to the server.
+2. 
+
+## Tools used:
+claude CLI with Claude 4.5 Sonnet model.
+
+## Development process:
+1. Use Claude CLI to generate a ticket in /tickets folder.
+2. Check the ticket.
